@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "71770f7e-60a2-4a12-a9f8-02adeb031731",
+		"name": "avios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{URL}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/api/v1/products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_name\": \"LG G-flex\",\r\n    \"product_description\": \"lorem ipsum dolor sit ame\",\r\n    \"product_varieties\":[\r\n        {\r\n        \"size\":14, \"quantity\": 123, \"color\": \"Orange\", \"images\": [\"http://example.com/image1\", \"http://example.com/image2\" ], \r\n        \"price\": 2500 },\r\n        {\r\n        \"size\":15, \"quantity\": 123, \"color\": \"blue\", \"images\": [\"http://example.com/image1\", \"http://example.com/image2\" ], \r\n        \"price\": 2500 },\r\n        {\r\n        \"size\":12, \"quantity\": 123, \"color\": \"Black\", \"images\": [\"http://example.com/image1\", \"http://example.com/image2\" ], \r\n        \"price\": 2500 }\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/api/v1/products/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/api/v1/products/5f2d79046d09d31200df0735",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"product_varieties\":[\r\n        {\r\n        \"size\":14, \"quantity\": 123, \"color\": \"Orange\", \"images\": [\"http://example.com/image1\", \"http://example.com/image2\" ], \r\n        \"price\": 2500 }\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products/5f2d79046d09d31200df0735",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"5f2d79046d09d31200df0735"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/api/v1/products/5f2d7a066d09d31200df0737/variety/5f2d7a066d09d31200df0738",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/products/5f2d7a066d09d31200df0737/variety/5f2d7a066d09d31200df0738",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"5f2d7a066d09d31200df0737",
+						"variety",
+						"5f2d7a066d09d31200df0738"
+					]
+				},
+				"description": "Deletes a specific variety"
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/api/v1/products/5f2d7a066d09d31200df0737",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/products/5f2d7a066d09d31200df0737",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"5f2d7a066d09d31200df0737"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
