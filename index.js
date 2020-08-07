@@ -81,7 +81,47 @@ app.patch('/products/:product_id', async (req, res, next) => {
             new: true,
             runValidators: true
         }).lean();
+        if (!product) {
+            return errorHandler(404, 'Product not found');
+        }
         return responseHandler(res, product, next, 200, 'Product was successfully updated', 1);
+    } catch (error) {
+        return next(error);
+    }
+});
+
+app.delete('/api/v1//products/:product_id/variety/variety_id', async (req, res, next) => {
+    try {
+        const product = await Product.findOne({ _id: req.params.product_id }).select({ product_varieties: 1 });
+        if (!product) return errorHandler(404, 'Product not found');
+
+        let x = 0;
+        const len = product[product_varieties].length;
+        for (let i = 0; i < len; i++) {
+            if (req.params.varaiety_id == `${product[product_varieties][i]._id}`) {
+                product[product_varieties].splice(i, 1);
+                x++;
+                break;
+            }
+        }
+        await document.save();
+        if (x < 1) {
+            return errorHandler(404, 'Product variety was not found in the product specified');
+        }
+
+        return responseHandler(res, null, next, 204, 'Deleted successfuly', 1);
+    } catch (error) {
+        return next(error)
+    }
+});
+
+app.delete('/products/:product_id', async (req, res, next) => {
+    try {
+        const product = await Product.findOneAndDelete({ _id: req.params.product_id }).lean();
+        if (!product) {
+            return errorHandler(404, 'Product not found');
+        }
+        return responseHandler(res, null, next, 204, 'Deleted successfuly', 1);
     } catch (error) {
         return next(error);
     }
