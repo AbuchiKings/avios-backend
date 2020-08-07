@@ -39,6 +39,12 @@ app.use(preventParameterPollution());
 
 app.use(compression());
 
+
+app.get('/', (req, res, next) => {
+    return res.status(200).json('Welcome to Avios');
+});
+
+//creates a new product
 app.post('/api/v1/products', async (req, res, next) => {
     try {
         const date_uploaded = Date();
@@ -55,11 +61,12 @@ app.post('/api/v1/products', async (req, res, next) => {
     }
 });
 
+//retrieves all products
 app.get('/api/v1/products', async (req, res, next) => {
     try {
         const products = await Product.find().lean();
         if (products.length < 1) {
-            errorHandler(404, 'No products have been uploaded yet')
+            errorHandler(404, 'No products has been uploaded yet')
         }
 
         return responseHandler(res, products, next, 200, 'Products successfully retrieved', products.length);
@@ -69,11 +76,11 @@ app.get('/api/v1/products', async (req, res, next) => {
     }
 });
 
-app.patch('/products/:product_id', async (req, res, next) => {
+// Updates a specific product
+app.patch('/api/v1/products/:product_id', async (req, res, next) => {
     try {
         let { date_uploaded, product_varieties, ...updateData } = req.body;
         if (product_varieties) {
-            product_varieties = {};
             updateData = { ...updateData, $addToSet: { product_varieties: [...product_varieties] } };
         }
         const date_edited = Date();
@@ -90,24 +97,27 @@ app.patch('/products/:product_id', async (req, res, next) => {
     }
 });
 
-app.delete('/api/v1//products/:product_id/variety/variety_id', async (req, res, next) => {
+// Deletes a specific variety from a specific product
+app.delete('/api/v1/products/:product_id/variety/:variety_id', async (req, res, next) => {
     try {
         const product = await Product.findOne({ _id: req.params.product_id }).select({ product_varieties: 1 });
         if (!product) return errorHandler(404, 'Product not found');
 
         let x = 0;
-        const len = product[product_varieties].length;
+        const len = product['product_varieties'].length;
+        console.log(req.params.variety_id);
         for (let i = 0; i < len; i++) {
-            if (req.params.varaiety_id == `${product[product_varieties][i]._id}`) {
-                product[product_varieties].splice(i, 1);
+            if (req.params.variety_id == `${product['product_varieties'][i]._id}`) {
+                console.log(product['product_varieties'][i]._id);
+                product['product_varieties'].splice(i, 1);
                 x++;
                 break;
             }
         }
-        await document.save();
         if (x < 1) {
             return errorHandler(404, 'Product variety was not found in the product specified');
         }
+        await product.save();
 
         return responseHandler(res, null, next, 204, 'Deleted successfuly', 1);
     } catch (error) {
@@ -115,7 +125,8 @@ app.delete('/api/v1//products/:product_id/variety/variety_id', async (req, res, 
     }
 });
 
-app.delete('/products/:product_id', async (req, res, next) => {
+//Deletes a product
+app.delete('/api/v1/products/:product_id', async (req, res, next) => {
     try {
         const product = await Product.findOneAndDelete({ _id: req.params.product_id }).lean();
         if (!product) {
