@@ -1,0 +1,32 @@
+{
+  "name": "avios-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Abuchi Kingsley",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.0",
+    "express-rate-limit": "^5.1.3",
+    "helmet": "^3.23.3",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.27",
+    "utf-8-validate": "^5.0.2",
+    "validator": "^13.1.1",
+    "xlsx": "^0.16.5",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
